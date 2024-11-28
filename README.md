@@ -28,5 +28,3 @@
 - *Respect*: Valuing each team member's contributions.
 - *Courage*: Facing challenges without hesitation
 
-helloS
-hhhhhh for Riwan
