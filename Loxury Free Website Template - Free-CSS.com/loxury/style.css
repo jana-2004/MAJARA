@@ -859,7 +859,7 @@ a {
 }
 
 .nav-item.active {
-    background: #72dd78;
+    background: #643d2d;
 }
 
 header .main_menu .nav-item.active a.nav-link {
@@ -981,17 +981,32 @@ header .main_menu .nav-item.active a.nav-link {
 /**---- header top ----**/
 
 .header_top_section {
-    min-height: auto;
+    min-height: 15px;
+    background: url(images/textured_green.jpg);
 }
 
 /**---- logo ----**/
 
 .logo {
     float: left;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    width : 70px;
+    height: 70px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
+.logo-wrapper {
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.brand-name {
+    font-family: 'Lora', serif;
+    font-size: 25px;
+    font-weight: bold; 
+    color: #7A4732; 
+}
 .site_information {
     padding-top: 25px;
 }
@@ -1034,7 +1049,7 @@ header .main_menu .nav-item.active a.nav-link {
 
 .header_bottom_section {
     min-height: 70px;
-    background: #fff;
+    background: #fcecdb;
 }
 
 .header_bottom_section .main_menu {
@@ -1113,6 +1128,8 @@ header .main_menu .nav-item.active a.nav-link {
 
 .img-responsive {
     max-width: 100%;
+    width: 100px;
+    height: 100px;
 }
 
 .padding_bottom_0 {
@@ -1327,6 +1344,21 @@ p.large_1 {
     color: #111428;
 }
 
+.line {
+    flex: 1;
+    border-top: 2px solid #333; /* Line color and thickness */
+    margin: 0 10px; /* Space between the line and the text */
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif; /* Adjust font if needed */
+    font-weight: bold;
+    font-size: 40px;
+    color: #333;
+}
 /*-------------------------------------------------------------------
     5.sidebar
 -------------------------------------------------------------------*/
@@ -1788,7 +1820,7 @@ p.large_1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: #111;
+    background: url(images/textured_green.jpg);
     z-index: 11000;
     position: fixed;
     display: flex;
@@ -2543,7 +2575,7 @@ ol.workinghours li span,
 }
 
 .slider1 {
-    background: url("images/slider1.jpg");
+    background: url("images/indexbg.jpg");
 }
 
 .slider2 {
@@ -2555,7 +2587,8 @@ ol.workinghours li span,
 }
 
 h4.font_themecolor {
-    color: #72dd78 !important;
+    color:  #004d00 !important;
+    font-family: 'Lora', serif;
 }
 
 .slider_coint_inner {
@@ -3121,7 +3154,7 @@ h3.price_tag {
 -------------------------------------------------------------------*/
 
 .dark-section, .footer {
-    background: #171817;
+    background: #2b0e05;
 }
 
 .footer .widget-title {
@@ -3309,7 +3342,7 @@ h3.price_tag {
 
 .innerpage_banner {
     min-height: 250px;
-    background: #72dd78;
+    background: #b49078;
     padding-top: 0;
     display: flex;
     align-items: center;
