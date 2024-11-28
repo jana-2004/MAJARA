@@ -29,4 +29,4 @@
 - *Courage*: Facing challenges without hesitation
 
 helloS
-hello from riwan
+hello from the other side
