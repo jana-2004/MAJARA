@@ -28,7 +28,3 @@
 - *Respect*: Valuing each team member's contributions.
 - *Courage*: Facing challenges without hesitation
 
-try for rana
-
-hi janona
-hi ranona
