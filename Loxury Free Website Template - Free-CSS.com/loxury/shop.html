@@ -145,12 +145,15 @@
       <section class="layout_padding haf_layout section">
          <div class="container">
            <div class="row product_section">
-               <div class="col-md-4"> 
-                  <div class="full product_blog margin_top_30">
-                     <img src="images/pro1.jpg" alt="#" />
-                     <h3><span style="color: #72dd78 !important;">$100</span> Diamond ring</h3>
-                  </div>
+            <div class="col-md-4">
+               <div class="full product_blog margin_top_30" id="product1">
+                   <div class="heart-container">
+                       <span class="heart" id="1">&#10084;</span>
+                   </div>
+                   <img src="images/pro2.jpg" alt="#" />
+                   <h3><span style="color: #72dd78 !important;">$100</span> Diamond ring</h3>
                </div>
+           </div>
                <div class="col-md-4">
                   <div class="full product_blog margin_top_30">
                      <img src="images/pro2.jpg" alt="#" />
@@ -247,5 +250,14 @@
       <script src="js/animate.js"></script>
       <script src="js/ekko-lightbox.js"></script>
       <script src="js/custom.js"></script>
+      <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.heart').forEach(heart => {
+               heart.addEventListener('click', () => {
+                  heart.classList.toggle('active');
+               });
+            });
+         });
+      </script>
    </body>
 </html>
