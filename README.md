@@ -26,5 +26,9 @@
 - *Focus*: Concentration on the Sprint goals.
 - *Openness*: Willingness to share challenges and successes.
 - *Respect*: Valuing each team member's contributions.
+
 - *Courage*: Facing challenges without hesitation Rana :
 jana help me 
+
+- *Courage*: Facing challenges without hesitation jana
+
