@@ -28,7 +28,5 @@
 - *Respect*: Valuing each team member's contributions.
 - *Courage*: Facing challenges without hesitation
 
-helloS
-hello from the other side
-test is testing
+try for rana
 
