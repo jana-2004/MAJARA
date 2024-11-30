@@ -27,7 +27,8 @@ h3 span,
 .navbar-inverse .navbar-nav .nav-link.active,
 .navbar-inverse .navbar-nav .nav-link.open,
 .navbar-inverse .navbar-nav .open>.nav-link {
-    color: #111428 !important;
+    color:#643d2d;
+
 }
 
 .theme_color {

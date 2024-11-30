@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel='stylesheet' href="../static/css/style.css">
+</head>
+<body>
+   <div class="login_card">
+    <form method="post" action="/login">
+        <label for ='email'>Email:</label>
+        <input type="email" name="email" required id="email">
+        <label for ='password'>Password:</label>
+        <input type="password" name="password" required id="password">
+        {% if error_username_password %}
+            <p class="error">{{ error_username_password }}</p>
+        {% endif %}
+        <input type="submit" value="Sign in">
+        <a href="/signup" style="text-decoration: none;">You don't have acount? Sign up.</a>
+
+
+
+   </form> 
+</body>
+</html>

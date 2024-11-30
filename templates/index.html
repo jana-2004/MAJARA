@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Site Metas -->
+   <title>MAJARA</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" href="images/fevicon.png" type="image/png" />
+   <!-- Bootstrap core CSS -->
+   <link href="../static/css/bootstrap.css" rel="stylesheet">
+   <!-- FontAwesome Icons core CSS -->
+   <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+   <!-- Custom animate styles for this template -->
+   <link href="../static/css/animate.css" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+   <link href="../static/css/style.css" rel="stylesheet">
+   <!-- Responsive styles for this template -->
+   <link href="../static/css/responsive.css" rel="stylesheet">
+   <!-- Colors for this template -->
+   <link href="../static/css/colors.css" rel="stylesheet">
+   <!-- light box gallery -->
+   <link href="../static/css/ekko-lightbox.css" rel="stylesheet">
+   <!--[if lt IE 9]>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+   <![endif]-->
+   </head>
+   <body id="home_page" class="home_page">
+      <!-- loader -->
+      <div id="preloader">
+         <img class="preloader" src="..\static\images\majara_logo.png" alt="#">
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      <header class="header">
+
+         <header class="header">
+            <div class="header_top_section">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-3">
+                        <div class="logo-wrapper">
+                           <div class="logo">
+                              <a href="/"><img src="..\static\images\majara_logo.png" alt="#" /></a>
+                           </div>
+                           <div class="brand-name">
+                              Majara
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-9 d-flex justify-content-end">
+                        <div class="logo-wrapper"> 
+                           <div class="logo">
+                              <a href="/login">
+                                 <img 
+                                    src="..\static\images\account-icon.png" 
+                                    alt="Login" 
+                                    class="login-icon">
+                              </a>
+                             </div>
+                             {% if session.get('user_name') %}
+                              <div class="user-name">
+                                 Welcome, {{ session.get('user_name') }}!
+                                </div>
+                              {% endif %}
+                              
+                           </div>
+                        </div>
+                      
+                  </div>
+               </div>
+            </div>
+         
+         
+ 
+        <div class="header_bottom_section">
+
+         <div class="container">
+            
+           <div class="row">
+               <div class="col-md-12">
+                  <div class="full ">
+                     <div class="main_menu">
+                        <nav class="navbar navbar-inverse navbar-toggleable-md">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cloapediamenu" aria-controls="cloapediamenu" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="float-left">Menu</span>
+                           <span class="float-right"><i class="fa fa-bars"></i> <i class="fa fa-close"></i></span>
+                           </button>
+                           <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
+                              <ul class="navbar-nav">
+                                 <li class="nav-item active">
+                                    <a class="nav-link" href='/'>Home</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link color-aqua-hover" href="/about">About</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link color-aqua-hover" href="/jewellery">Jewellery</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link color-grey-hover" href="/shop">Shop</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                 </li>
+                              </ul>
+                           </div>
+                        </nav>
+                     </div>
+                     <div class="search_bar">
+                        <form id="navbarSearchForm" onsubmit="handleNavbarSearch(event)">
+                           <input type="text" id="navbarSearchInput" class="search_field" placeholder="Search..." required />
+                           <button class="search_button" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- end header -->
+      <!-- slider -->
+      <section class="slider_section">
+         <div class="container-fluid">
+            <div class="row">
+               <div id="main_slider" class="carousel slide carousel-fade" data-ride="carousel" data-interval="5000">
+                  <div class="carousel-inner">
+                     <div class="carousel-item slider_inner slider1 active">
+                        <div class="container">
+                           <div class="row">
+                              <div class="slider_coint_inner">
+                                 <h4 class="font_themecolor">Find your GemStone here</h4>
+                                 <p >Your beauty can not be devined only by external appearance. Inner beauty plays a big part for it. <br>
+                                    But, there is no way you do not want to enhance your external beauty. So, here we are offering you the best thing you could ever get.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item slider_inner slider2">
+                        <div class="container">
+                           <div class="row">
+                              <div class="slider_coint_inner">
+                                 <h3>Best<br><strong>New Collection</strong></h3>
+                                 <h4 class="font_themecolor">Loxury Jewellery</h4>
+                                 <p>Lorem ipsum dolor sit amet consec tetur adipiscing elit elit at felis<br>
+                                    lacinia nec et est aptent taciti sociosqu ad litora torquent per conubia nostra</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="slider_bullets">
+                        <ol class="carousel-indicators">
+                           <li data-target="#main_slider" data-slide-to="0" class="active"><i class="fa fa-chevron-left"></i></li>
+                           <li data-target="#main_slider" data-slide-to="1"><i class="fa fa-chevron-right"></i></li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end slider -->
+
+      <!-- about section -->
+      <section class="layout_padding section padding_bottom_0">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="header-section">
+                     <div class="line"></div>
+                     <div>POPULAR ITEMS</div>
+                     <div class="line"></div>
+                 </div>
+                  <div class="full">
+                     <p class="large"></p>
+                  </div>
+               </div>
+               <div id="product-container" class="product-container"></div>
+                  <script>
+                     // Fetch the products from the Flask API endpoint
+                     fetch('/api/products')
+                           .then(response => response.json())
+                           .then(products => {
+                              const container = document.getElementById('product-container');
+                              products.forEach(product => {
+                                 // Create the product card
+                                 const productDiv = document.createElement('div');
+                                 productDiv.classList.add('product');
+                                 
+                                 // Add product image
+                                 const image = document.createElement('img');
+                                 image.src = product["Image URL"];
+                                 image.alt = product["Title"];
+                                 productDiv.appendChild(image);
+                                 
+                                 // Add product title
+                                 const title = document.createElement('p');
+                                 title.classList.add('product-title');
+                                 title.textContent = product["Title"];
+                                 productDiv.appendChild(title);
+                                 
+                                 // Add product price
+                                 const price = document.createElement('p');
+                                 price.classList.add('product-price');
+                                 price.textContent = `Price: ${product["Base Price"]} (EGP: ${product["Price (EGP)"]})`;
+                                 productDiv.appendChild(price);
+                                 
+                                 // Add product link
+                                 const link = document.createElement('a');
+                                 link.href = product["Product Link"];
+                                 link.classList.add('product-link');
+                                 link.textContent = "View Product";
+                                 productDiv.appendChild(link);
+                                 
+                                 const review = document.createElement('a')
+                                 review.href = "/review";
+                                 review.classList.add('product-link');
+                                 review.textContent = "Add Review";
+                                 productDiv.appendChild(review);
+                                 // Append product card to the container
+                                 container.appendChild(productDiv);
+                              });
+                           })
+                           .catch(error => {
+                              console.error('Error loading the products:', error);
+                           });
+                  </script>
+            </div>
+         </div>
+      </section>
+      <!-- end about section -->
+       
+  
+     
+      <!-- footer -->
+      <footer class="footer layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-3 col-sm-12">
+                  <div>
+                  <a href="/"><img class="img-responsive" src="../static/images/majara_logo.png" alt="#" /></a>
+                  </div>
+               </div>
+
+               <div class="col-md-3 col-sm-12">
+                  <div class="footer_link_heading">
+                     <h3>Address</h3>
+                  </div>
+                  <div class="address_infor">
+                     <p> 
+                        <span class="icon"><img src="images/location_icon.png" alt="#" /></span>
+                        <span class="addrs">104 New York , USA</span>
+                     </p>
+                  </div>
+               </div>
+
+               <div class="col-md-3 col-sm-12">
+                  <div class="footer_link_heading">
+                     <h3>Social Link</h3>
+                  </div>
+                  <div class="social_icon">
+                    <ul>
+                       <li><a href="#"><img src="images/fb.png" alt="#" /></a></li>
+                       <li><a href="#"><img src="images/tw.png" alt="#" /></a></li>
+                       <li><a href="#"><img src="images/gp.png" alt="#" /></a></li>
+                       <li><a href="#"><img src="images/in.png" alt="#" /></a></li>
+                    </ul>
+                  </div>
+               </div>
+               
+               <div class="col-md-3 col-sm-12">
+                  <div class="footer_link_heading">
+                     <h3>Newsletter</h3>
+                  </div>
+                  <div class="email_address_bottom">
+                     <form>
+                        <fieldset>
+                           <div class="field_email">
+                              <input type="email" name="email" placeholder="Enter Your Email">
+                              <button><i class="fa fa-search"></i></button>
+                           </div>
+                        </fieldset>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Core JavaScript
+         ================================================== -->
+      <script src="../static/js/jquery.min.js"></script>
+      <script src="../static/js/tether.min.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+      <script src="../static/js/parallax.js"></script>
+      <script src="../static/js/animate.js"></script>
+      <script src="../static/js/ekko-lightbox.js"></script>
+      <script src="../static/js/custom.js"></script>
+   </body>
+</html>

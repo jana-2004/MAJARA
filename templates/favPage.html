@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Favorite Jewelry</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script defer src="../static/js/script.js"></script>
+
+</head>
+<body>
+    <h1>Your Favorite Jewelry</h1>
+    <a href="/" class="favorites-link">Go to Home</a>
+
+    <div id="results" class="product-container">
+        {% for product in favorites %}
+            <div class="product">
+                <h3>{{ product.Title }}</h3>
+                <img src="{{ product['Image URL'] }}" alt="{{ product.Title }}">
+                <p>{{ product.Description }}</p>
+                <p>Price: {{ product['Price (EGP)'] }}</p>
+                <a href="{{ product['Product Link'] }}" target="_blank">View Product</a>
+                <button class="remove-button" onclick="removeFromFavorites('{{ product['Product Link'] }}')">Remove</button>
+
+                           
+             </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
