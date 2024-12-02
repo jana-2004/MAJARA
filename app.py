@@ -70,11 +70,7 @@ def validate_password(password):
     pattern= r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
     return re.match(pattern,password)
 
-def get_user_by_email(email):
-    for user in db.values():
-        if user['email'] == email:
-            return user
-    return None
+
 
 
 @app.route('/')
