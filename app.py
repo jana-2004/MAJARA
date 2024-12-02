@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for,session
-from db import db
 import re
 import os
 from passlib.hash import pbkdf2_sha256   
