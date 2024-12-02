@@ -1,0 +1,32 @@
+{
+    "s-jana.mohammed@zewailcity.edu.eg": {
+        "name": "jana ahmed",
+        "password": "$pbkdf2-sha256$29000$XGvtXWvt/T.HEALgHMPYWw$FdduNHAyND3mxccWx1C1g6iE3sJ16gExeff6rO10m64",
+        "address": "october",
+        "year_of_birth": "2004",
+        "favorites": [
+            "https://jewelsbygalla.com/en-eg/products/crimson-scarlet-ring-jcr071-y-rb?_pos=1&_sid=61b6cfebd&_ss=r",
+            "https://jewelsbygalla.com/en-eg/products/pink-sapphire-eternity-ring-sapphire-18k-gold-jcr067-y-psph?_pos=2&_sid=61b6cfebd&_ss=r"
+        ]
+    },
+    "riwanashraf68@gmail.com": {
+        "name": "riwan ashraf",
+        "password": "$pbkdf2-sha256$29000$L8UY4xyDsFYqBaCU0vpfaw$New0Se8EJ/8j3l.hBj78Hf0TpRBgTwEHnWXMh99Q6zY",
+        "address": "street 1",
+        "year_of_birth": "2004",
+        "favorites": [
+            "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r"
+        ]
+    },
+    "maysammiso@gmail.com": {
+        "name": "Maysam Asser",
+        "password": "$pbkdf2-sha256$29000$zznnfC9FaI2x1hrD2Bsj5A$cHmw4VPjl4Fx6XlCL8nWfHw3x13/Ob0dtszupz3Qhzg",
+        "address": "street 1",
+        "year_of_birth": "2005",
+        "favorites": [
+            "https://jewelsbygalla.com/en-eg/products/pink-sapphire-eternity-ring-sapphire-18k-gold-jcr067-y-psph?_pos=2&_sid=61b6cfebd&_ss=r",
+            "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r",
+            "https://jewelsbygalla.com/en-eg/products/champagne-sapphire-ring-jcr074-y-ov?_pos=4&_sid=61b6cfebd&_ss=r"
+        ]
+    }
+}
