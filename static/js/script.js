@@ -30,18 +30,37 @@ function renderProducts() {
         const productDiv = document.createElement("div");
         productDiv.className = "product";
 
-        // Product Image
+       
         const img = document.createElement("img");
         img.src = product["Image URL"];
         img.alt = product.Title;
 
-        // Product Title
+        
         const title = document.createElement("h3");
         title.textContent = product.Title;
 
-        // Product Description
-        const description = document.createElement("p");
-        description.textContent = product.Description.substring(0, 100) + "...";
+       
+        const descriptionDiv = document.createElement("div");
+        const descriptionText = product.Description;
+        const descriptionPreview = descriptionText.substring(0, 100) + "..."; 
+        const fullDescription = document.createElement("p");
+        fullDescription.textContent = descriptionText;
+
+        
+        const readMoreLink = document.createElement("a");
+        readMoreLink.href = "#";
+        readMoreLink.textContent = "Read More";
+        readMoreLink.style.color = "#007bff"; 
+
+       
+        readMoreLink.onclick = (e) => {
+            e.preventDefault();
+            descriptionDiv.innerHTML = ""; 
+            descriptionDiv.appendChild(fullDescription); 
+        };
+
+        descriptionDiv.appendChild(document.createTextNode(descriptionPreview));
+        descriptionDiv.appendChild(readMoreLink);
 
         // Product Price
         const price = document.createElement("p");
@@ -69,7 +88,7 @@ function renderProducts() {
         // Append Elements to Product Div
         productDiv.appendChild(img);
         productDiv.appendChild(title);
-        productDiv.appendChild(description);
+        productDiv.appendChild(descriptionDiv); // Append description with "Read More"
         productDiv.appendChild(price);
         productDiv.appendChild(link);
         productDiv.appendChild(heartIcon);
@@ -78,29 +97,64 @@ function renderProducts() {
     });
 }
 
-// Function to Render Pagination Links
+
+
 function renderPagination() {
     const paginationContainer = document.getElementById("pagination");
     paginationContainer.innerHTML = "";
+    paginationContainer.className = "pagination-container";
 
     const totalPages = Math.ceil(currentProducts.length / PRODUCTS_PER_PAGE);
+    const visiblePages = 5; // Maximum number of pages to display at once
+    const startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
-    for (let i = 1; i <= totalPages; i++) {
+    // "Previous" button
+    const prevButton = document.createElement("a");
+    prevButton.textContent = "«";
+    prevButton.href = "#";
+    prevButton.className = `pagination-link ${currentPage === 1 ? "disabled" : ""}`;
+    prevButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            renderProducts();
+            renderPagination();
+        }
+    });
+    paginationContainer.appendChild(prevButton);
+
+    // Page numbers
+    for (let i = startPage; i <= endPage; i++) {
         const pageLink = document.createElement("a");
         pageLink.textContent = i;
         pageLink.href = "#";
-        pageLink.className = i === currentPage ? "active" : "";
-
+        pageLink.className = `pagination-link ${i === currentPage ? "active" : ""}`;
         pageLink.addEventListener("click", (e) => {
             e.preventDefault();
             currentPage = i;
             renderProducts();
             renderPagination();
         });
-
         paginationContainer.appendChild(pageLink);
     }
+
+    // "Next" button
+    const nextButton = document.createElement("a");
+    nextButton.textContent = "»";
+    nextButton.href = "#";
+    nextButton.className = `pagination-link ${currentPage === totalPages ? "disabled" : ""}`;
+    nextButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderProducts();
+            renderPagination();
+        }
+    });
+    paginationContainer.appendChild(nextButton);
 }
+
 function removeFromFavorites(productUrl) {
     console.log("Removing:", productUrl); // Debugging log
     fetch('/remove_favorite', {

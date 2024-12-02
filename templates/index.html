@@ -111,9 +111,6 @@
                                     <a class="nav-link" href='/'>Home</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-aqua-hover" href="/jewellery">Jewellery</a>
-                                 </li>
-                                 <li class="nav-item">
                                     <a class="nav-link color-grey-hover" href="/shop">Shop</a>
                                  </li>
                                  <li class="nav-item">
@@ -207,7 +204,7 @@
                               // refer to the parent div
                               const container = document.getElementById('product-container');
 
-                              const limitedproducts = products.slice(0, 5);
+                              const limitedproducts = products.slice(0, 4);
                               limitedproducts.forEach(product => {
                                  // creation of child div
                                  const productDiv = document.createElement('div');
@@ -278,52 +275,16 @@
       <footer class="footer layout_padding">
          <div class="container">
             <div class="row">
-               <div class="col-md-3 col-sm-12">
-                  <div>
-                  <a href="/"><img class="img-responsive" src="../static/images/majara_logo.png" alt="#" /></a>
-                  </div>
+               <div class="col-md-3 col-sm-12 mb-3">
+                  <a href="/">
+                     <img class="img-responsive" src="../static/images/majara_logo.png" alt="Majara Logo" />
+                  </a>
                </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Address</h3>
-                  </div>
-                  <div class="address_infor">
-                     <p> 
-                        <span class="icon"><img src="images/location_icon.png" alt="#" /></span>
-                        <span class="addrs">104 New York , USA</span>
-                     </p>
-                  </div>
-               </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Social Link</h3>
-                  </div>
-                  <div class="social_icon">
-                    <ul>
-                       <li><a href="#"><img src="images/fb.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/tw.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/gp.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/in.png" alt="#" /></a></li>
-                    </ul>
-                  </div>
-               </div>
-               
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Newsletter</h3>
-                  </div>
-                  <div class="email_address_bottom">
-                     <form>
-                        <fieldset>
-                           <div class="field_email">
-                              <input type="email" name="email" placeholder="Enter Your Email">
-                              <button><i class="fa fa-search"></i></button>
-                           </div>
-                        </fieldset>
-                     </form>
-                  </div>
+               <div class="col-md-6">
+                  <h4 class="text-uppercase mb-3">Contact Us</h4>
+                  <p class="mb-2"><strong>Address:</strong> 5th settlement, City</p>
+                  <p class="mb-2"><strong>Email:</strong> <a href="mailto:support@majara.com" class="text-white">support@majara.com</a></p>
+                  <p><strong>Phone:</strong> +123 456 7890</p>
                </div>
             </div>
          </div>

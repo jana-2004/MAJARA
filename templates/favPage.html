@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Favorite Jewelry</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <script defer src="../static/js/script.js"></script>
-
 </head>
-<body>
+<body class="favorites-page">
     <h1>Your Favorite Jewelry</h1>
     <a href="/" class="favorites-link">Go to Home</a>
 
@@ -17,13 +15,17 @@
             <div class="product">
                 <h3>{{ product.Title }}</h3>
                 <img src="{{ product['Image URL'] }}" alt="{{ product.Title }}">
-                <p>{{ product.Description }}</p>
+
+                <!-- Description with Read More functionality -->
+                <details class="description">
+                    <summary>Read More</summary>
+                    <p>{{ product.Description }}</p>
+                </details>
+
                 <p>Price: {{ product['Price (EGP)'] }}</p>
                 <a href="{{ product['Product Link'] }}" target="_blank">View Product</a>
                 <button class="remove-button" onclick="removeFromFavorites('{{ product['Product Link'] }}')">Remove</button>
-
-                           
-             </div>
+            </div>
         {% endfor %}
     </div>
 </body>

@@ -92,8 +92,13 @@ def products():
 
 with open("reviews.json", 'r') as jsonfile:
     reviews = json.load(jsonfile)
-@app.route('/about', methods=["GET", "POST"])
+@app.route('/about')
 def about():
+    return render_template("about.html")
+
+
+@app.route('/contact', methods=["GET", "POST"])
+def contact():
     global reviews
     if request.method == "POST":
         name = request.form["name"]
@@ -101,13 +106,8 @@ def about():
         reviews.append({"name": name, "review": review})
         with open("reviews.json", 'w') as file:
             json.dump(reviews, file, indent=4)
-        return redirect(url_for("about"))
-    return render_template("about.html", reviews=reviews)
-
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+        return redirect(url_for("contact"))
+    return render_template("contact.html", reviews=reviews)
 
 @app.route('/jewellery')
 def jewellery():
