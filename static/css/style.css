@@ -4328,7 +4328,13 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
+    padding: 30px;
+}
+
+
+.product-container .product-link {
+    display: inline-block; /* Ensures buttons are beside each other */
+    margin-right: 10px; /* Optional: adds space between the buttons */
 }
 
 /* Product Card */
@@ -4376,6 +4382,7 @@ body {
 /* Link */
 .product-link {
     margin-top: 15px;
+    margin-right: 2px;
     display: inline-block;
     padding: 8px 15px;
     background-color: #4CAF50;
@@ -4457,7 +4464,7 @@ input[type="text"] {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #42B32F;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -4526,4 +4533,165 @@ input[type="text"] {
 }
 
 
+.footer h4 {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    color :wheat
+}
 
+.footer p {
+    font-size: 14px;
+    line-height: 1.6;
+    color :wheat
+}
+
+.footer a {
+    color :wheat; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color :wheat; 
+}
+
+.footer img {
+    max-width: 100%;
+    height: auto;
+    color :wheat;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #42B32F;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.pagination-link:hover {
+    background-color: #42B32F;
+    color: #fff;
+}
+
+.pagination-link.active {
+    background-color: #42B32F;
+    color: #fff;
+    font-weight: bold;
+    border-color: #42B32F;
+}
+
+.pagination-link.disabled {
+    color: #aaa;
+    border-color: #ddd;
+    pointer-events: none;
+    cursor: default;
+}
+
+
+
+
+.login_card {
+    border-radius: 8px;
+    padding: 20px;
+    width: 50%;
+}
+
+.signup_card {
+    border-radius: 8px;
+    padding: 20px;
+    width: 50%;
+}
+
+
+
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: gray;
+}
+
+input[type="text"], input[type="password"],input[type="email"],input[type="tel"],input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+input[type="text"]:focus, input[type="password"],input[type="email"],input[type="tel"],input[type="number"]:focus {
+    border-color: #0980ff;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #42B32F;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #42B32F;
+}
+
+a{
+color: brown;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+details {
+    margin-bottom: 1rem;
+}
+
+summary {
+    cursor: pointer;
+    color: #007bff;
+    font-weight: bold;
+}
+
+details[open] summary {
+    color: #0056b3;
+}
+
+.favorites-page {
+    background-image: url('../images/beige_background.jpg');  
+}
+
+.custombg {
+    background-image: url('../images/beige_background.jpg');
+    background-size: cover;  /* Make the background cover the whole section */
+    background-position: center center;  /* Center the background image */
+    background-repeat: no-repeat;  /* Prevent the background image from repeating */
+    padding: 50px 0;
+}
