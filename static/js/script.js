@@ -145,9 +145,16 @@ function toggleFavorite(productUrl, heartIcon) {
     .then(data => {
         if (data.success) {
             heartIcon.classList.toggle("liked");
+            // Update the favoriteLinks in real time
+            if (data.action === "added") {
+                favoriteLinks.push(productUrl);
+            } else {
+                favoriteLinks = favoriteLinks.filter(link => link !== productUrl);
+            }
         }
     });
 }
+
 
 
 // Initial Call to Fetch Products on Page Load

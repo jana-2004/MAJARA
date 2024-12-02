@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-   <!-- Basic -->
+
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Mobile Metas -->
+
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <!-- Site Metas -->
+
    <title>MAJARA</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
-   <!-- site icon -->
+
    <link rel="icon" href="images/fevicon.png" type="image/png" />
-   <!-- Bootstrap core CSS -->
+ 
    <link href="../static/css/bootstrap.css" rel="stylesheet">
-   <!-- FontAwesome Icons core CSS -->
+  
    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
-   <!-- Custom animate styles for this template -->
+
    <link href="../static/css/animate.css" rel="stylesheet">
-   <!-- Custom styles for this template -->
+ 
    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
    <link href="../static/css/style.css" rel="stylesheet">
-   <!-- Responsive styles for this template -->
+  
    <link href="../static/css/responsive.css" rel="stylesheet">
-   <!-- Colors for this template -->
+   
    <link href="../static/css/colors.css" rel="stylesheet">
-   <!-- light box gallery -->
+  
    <link href="../static/css/ekko-lightbox.css" rel="stylesheet">
-   <!--[if lt IE 9]>
-   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-   <![endif]-->
+ 
    </head>
+<!--
+   PAGE : Home Page
+
+   PURPOSE : Attract customers by displaying some popular items from the database and
+   provide the login and sign up functionalities for users
+
+   COMPONENTS : Navbar(to navigate through other pages), Login/Signup,
+    Popular items section, footer section
+
+   -->
    <body id="home_page" class="home_page">
-      <!-- loader -->
+    
       <div id="preloader">
          <img class="preloader" src="..\static\images\majara_logo.png" alt="#">
       </div>
-      <!-- end loader -->
-      <!-- header -->
-      <header class="header">
-
+      
+<!--the Header contains the 
+   1. logo which is a link that redirects to the index page
+   2. the account icon that is a link that redirects the user to login/sign-up page
+   -->
          <header class="header">
             <div class="header_top_section">
                <div class="container">
@@ -56,29 +64,33 @@
                         </div>
                      </div>
                      <div class="col-lg-9 d-flex justify-content-end">
-                        <div class="logo-wrapper"> 
-                           <div class="logo">
-                              <a href="/login">
-                                 <img 
-                                    src="..\static\images\account-icon.png" 
-                                    alt="Login" 
-                                    class="login-icon">
-                              </a>
-                             </div>
-                             {% if session.get('user_name') %}
-                              <div class="user-name">
-                                 Welcome, {{ session.get('user_name') }}!
+                        <div class="logo-wrapper">
+                            <div class="logo">
+                                {% if session.get('user_id') %}
+                                    <!-- If user is logged in, show logout option -->
+                                    <a href="/logout">
+                                        <img src="../static/images/account-icon.png" alt="Logout" class="login-icon">
+                                    </a>
+                                {% else %}
+                                    <!-- If user is not logged in, show login option -->
+                                    <a href="/login">
+                                        <img src="../static/images/account-icon.png" alt="Login" class="login-icon">
+                                    </a>
+                                {% endif %}
+                            </div>
+                    
+                            {% if session.get('user_id') %}
+                                <div class="user-name">
+                                    Welcome, {{ session.get('user_name') }}!
                                 </div>
-                              {% endif %}
-                              
+                            {% endif %}
                            </div>
                         </div>
-                      
                   </div>
                </div>
             </div>
          
-         
+         <!--The Navbar through which the user can navigate through all pages(HOME/JEWELLERY/SHOP/CONTACT/ABOUT)-->
  
         <div class="header_bottom_section">
 
@@ -99,9 +111,6 @@
                                     <a class="nav-link" href='/'>Home</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-aqua-hover" href="/about">About</a>
-                                 </li>
-                                 <li class="nav-item">
                                     <a class="nav-link color-aqua-hover" href="/jewellery">Jewellery</a>
                                  </li>
                                  <li class="nav-item">
@@ -109,6 +118,9 @@
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link color-aqua-hover" href="/about">About</a>
                                  </li>
                               </ul>
                            </div>
@@ -125,8 +137,8 @@
             </div>
          </div>
       </header>
-      <!-- end header -->
-      <!-- slider -->
+   
+   <!--This section is responsible for describing the website objective and attract users-->
       <section class="slider_section">
          <div class="container-fluid">
             <div class="row">
@@ -166,9 +178,11 @@
             </div>
          </div>
       </section>
-      <!-- end slider -->
+   
 
-      <!-- about section -->
+      <!--This section is for displaying the popular items(first results from webscrabbing)
+      with exception to handle any errors from loading the database
+      -->
       <section class="layout_padding section padding_bottom_0">
          <div class="container">
             <div class="row">
@@ -184,47 +198,70 @@
                </div>
                <div id="product-container" class="product-container"></div>
                   <script>
-                     // Fetch the products from the Flask API endpoint
+                     // fetch function loops through the products in the database 
+                     // create a div containing info for each product  
+                     // append the div created to the parent div with id="product-container"
                      fetch('/api/products')
                            .then(response => response.json())
                            .then(products => {
+                              // refer to the parent div
                               const container = document.getElementById('product-container');
-                              products.forEach(product => {
-                                 // Create the product card
+
+                              const limitedproducts = products.slice(0, 5);
+                              limitedproducts.forEach(product => {
+                                 // creation of child div
                                  const productDiv = document.createElement('div');
+                                 // set attribute class to 'product'
                                  productDiv.classList.add('product');
                                  
-                                 // Add product image
+                                 // create tag img
                                  const image = document.createElement('img');
+                                 // set attribute src to the image usl
                                  image.src = product["Image URL"];
+                                 // set attribute alt to title
                                  image.alt = product["Title"];
                                  productDiv.appendChild(image);
                                  
-                                 // Add product title
+                                 // create p (paragraph) tag
                                  const title = document.createElement('p');
+                                 // set attribute class to 'product-title'
                                  title.classList.add('product-title');
+                                 // set attribute text to 'title'
                                  title.textContent = product["Title"];
                                  productDiv.appendChild(title);
                                  
-                                 // Add product price
+                                 // create p (paragraph) tag
                                  const price = document.createElement('p');
+                                 // set attribute class to 'product-price'
                                  price.classList.add('product-price');
+                                 // set attribute text to the price of the item
                                  price.textContent = `Price: ${product["Base Price"]} (EGP: ${product["Price (EGP)"]})`;
                                  productDiv.appendChild(price);
                                  
-                                 // Add product link
+                                 // create a (link) tag
                                  const link = document.createElement('a');
+                                 // set the link to the product-link
                                  link.href = product["Product Link"];
+                                 // set attribute class to 'product-link'
                                  link.classList.add('product-link');
+                                 // set attribute text to 'View Product'
                                  link.textContent = "View Product";
                                  productDiv.appendChild(link);
                                  
+
+                                  // create a (link) tag
                                  const review = document.createElement('a')
+
+                                 // set the link attribute to the review page 
                                  review.href = "/review";
+                                 // set attribute class to 'product-link'
                                  review.classList.add('product-link');
+                                 // set attribute text to 'Add Review'
                                  review.textContent = "Add Review";
                                  productDiv.appendChild(review);
-                                 // Append product card to the container
+                                 
+
+                                 // finally append the child div to the parent div
                                  container.appendChild(productDiv);
                               });
                            })
@@ -235,11 +272,9 @@
             </div>
          </div>
       </section>
-      <!-- end about section -->
-       
-  
-     
-      <!-- footer -->
+    
+
+      <!--Footer section that contains the contact info-->
       <footer class="footer layout_padding">
          <div class="container">
             <div class="row">
@@ -293,9 +328,7 @@
             </div>
          </div>
       </footer>
-      <!-- end footer -->
-      <!-- Core JavaScript
-         ================================================== -->
+   
       <script src="../static/js/jquery.min.js"></script>
       <script src="../static/js/tether.min.js"></script>
       <script src="../static/js/bootstrap.min.js"></script>
