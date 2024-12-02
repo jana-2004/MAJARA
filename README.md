@@ -27,3 +27,13 @@
 - *Openness*: Willingness to share challenges and successes.
 - *Respect*: Valuing each team member's contributions.
 - *Courage*: Facing challenges without hesitation
+
+
+
+## How to run project
+
+*TOOLS*: visual studio code
+
+*NEEDED DEPENDENCIES*: flask,re,os,passlib ,uuid,json
+
+*RUN ON TERMINAL*:python app.py
