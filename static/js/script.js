@@ -58,14 +58,10 @@ function renderProducts() {
         heartIcon.className = "heart";
         heartIcon.innerHTML = "&#10084;"; // Heart symbol
 
-        // Check if the product is already in favorites
-        fetch("/favorites")
-            .then(response => response.json())
-            .then(favorites => {
-                if (favorites.some(fav => fav["Product Link"] === product["Product Link"])) {
-                    heartIcon.classList.add("liked");
-                }
-            });
+        // Check if the product is in favorites
+        if (favoriteLinks.includes(product["Product Link"])) {
+            heartIcon.classList.add("liked");
+        }
 
         // Toggle favorite on click
         heartIcon.onclick = () => toggleFavorite(product["Product Link"], heartIcon);
