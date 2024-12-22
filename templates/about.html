@@ -62,9 +62,9 @@
                          <div class="logo">
                              {% if session.get('user_id') %}
                                  <!-- If user is logged in, show logout option -->
-                                 <a href="/logout">
-                                     <img src="../static/images/account-icon.png" alt="Logout" class="login-icon">
-                                 </a>
+                                 <div class="user-name">
+                                    <a href="/logout">Logout</a>
+                                 </div>
                              {% else %}
                                  <!-- If user is not logged in, show login option -->
                                  <a href="/login">
@@ -106,7 +106,7 @@
                                     <a class="nav-link color-grey-hover" href="/shop">Shop</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                    <a class="nav-link color-grey-hover" href="/contact">Review</a>
                                  </li>
                                  <li class="nav-item active">
                                     <a class="nav-link color-aqua-hover" href="/about">About</a>
@@ -115,16 +115,14 @@
                            </div>
                         </nav>
                      </div>
-                     <div class="search_bar">
-                        <form action="/">
-                           <input type="text" class="search_field" placeholder="Search" required />
-                           <button class="search_button" type="button"><i class="fa fa-search"></i></button>
-                        </form>
-                     </div>
+                     <button id="darkModeToggle" class="btn btn-dark">
+                        <i class="fa fa-moon-o"></i> Theme
+                     </button>
                   </div>
                </div>
             </div>
          </div>
+        
       </header>
       <!-- end header -->
       <!-- inner page -->
@@ -213,6 +211,29 @@
       <!-- end footer -->
       <!-- Core JavaScript
          ================================================== -->
+
+
+         <script>
+            document.getElementById('darkModeToggle').addEventListener('click', function () {
+               document.body.classList.toggle('dark-mode');
+            
+               // Save the user's preference in localStorage
+               const isDarkMode = document.body.classList.contains('dark-mode');
+               localStorage.setItem('darkMode', isDarkMode);
+            });
+            
+            // Load the user's preference on page load
+            window.addEventListener('DOMContentLoaded', function () {
+               if (localStorage.getItem('darkMode') === 'true') {
+                  document.body.classList.add('dark-mode');
+               }
+            });
+            
+                  </script>
+
+
+
+         <script src="../static/js/script.js"></script>
       <script src="../static/js/jquery.min.js"></script>
       <script src="../static/js/tether.min.js"></script>
       <script src="../static/js/bootstrap.min.js"></script>
@@ -220,5 +241,6 @@
       <script src="../static/js/animate.js"></script>
       <script src="../static/js/ekko-lightbox.js"></script>
       <script src="../static/js/custom.js"></script>
+  
    </body>
 </html>

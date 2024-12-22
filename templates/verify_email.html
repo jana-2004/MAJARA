@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <link rel='stylesheet' href="../static/css/style.css">
+</head>
+<body>
+    <div class="verify_email_card">
+    <form method="post" action="/verify_email">
+        <label for ='code'>Verification Code:</label>
+        <input type="text" name="code" required id="code">
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    
+        <input type="submit" value="verify">
+        <a href="/signup" style="text-decoration: none;">resign up</a>
+
+    </form> 
+</body>
+</html>

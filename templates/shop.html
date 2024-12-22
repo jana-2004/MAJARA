@@ -59,13 +59,13 @@
                          <div class="logo">
                              {% if session.get('user_id') %}
                                  <!-- If user is logged in, show logout option -->
-                                 <a href="/logout">
-                                     <img src="../static/images/account-icon.png" alt="Logout" class="login-icon">
-                                 </a>
+                                 <div class="user-name">
+                                    <a href="/logout">Logout</a>
+                                 </div>
                              {% else %}
                                  <!-- If user is not logged in, show login option -->
                                  <a href="/login">
-                                     <img src="../static/images/account-icon.png" alt="Login" class="login-icon">
+                                    <img src="../static/images/account-icon.png" alt="Login" class="login-icon">
                                  </a>
                              {% endif %}
                          </div>
@@ -103,7 +103,7 @@
                                     <a class="nav-link color-grey-hover" href="/shop">Shop</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                    <a class="nav-link color-grey-hover" href="/contact">Review</a>
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link color-aqua-hover" href="/about">About</a>
@@ -112,16 +112,14 @@
                            </div>
                         </nav>
                      </div>
-                     <div class="search_bar">
-                        <form id="navbarSearchForm" onsubmit="handleNavbarSearch(event)">
-                           <input type="text" id="navbarSearchInput" class="search_field" placeholder="Search..." required />
-                           <button class="search_button" type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                     </div>
+                     <button id="darkModeToggle" class="btn btn-dark">
+                        <i class="fa fa-moon-o"></i> Theme
+                     </button>
                   </div>
                </div>
             </div>
          </div>
+      
       </header>
       <!-- end header -->
        <!-- inner page -->
@@ -147,6 +145,96 @@
 
          <!-- Link to Favorites Page -->
          <a href="/favPage" class="product-link">View Favorites</a>
+
+         <button class="filter-btn" onclick="openFilterPanel()">☰ Filter</button>
+
+         <div id="filterPanel" class="filter-panel">
+             <div class="filter-header">
+                 <h2>FILTER</h2>
+                 <button class="close-btn" onclick="closeFilterPanel()">×</button>
+             </div>
+             <div class="filter-content">
+                 <!-- Price Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('priceSection', 'priceArrow')">
+                         Price
+                         <span id="priceArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="priceSection" class="filter-section-content">
+                         <div class="price-range">
+                             <span id="minPrice">LE 0</span>
+                             <input type="range" id="priceRange" min="0" max="550000" step="100" value="550000">
+                             <span id="maxPrice">LE 550,000</span>
+                         </div>
+                     </div>
+                 </div>
+     
+                   <!-- Brand Section -->
+                   <div class="filter-section">
+                     <h3 onclick="toggleSection('brandSection', 'brandArrow')">
+                         Brand
+                         <span id="brandArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="brandSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox" value="Azza Fahmy"> Azza Fahmy</li>
+                             <li><input type="checkbox" value="Jewelry by Galla"> Jewelry by Galla</li>
+                         </ul>
+
+                         
+                     </div>
+                 </div>
+     
+     
+                 <!-- Product Type Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('productTypeSection', 'productTypeArrow')">
+                         Product Type
+                         <span id="productTypeArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="productTypeSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox"> Bracelet</li>
+                             <li><input type="checkbox"> Earrings</li>
+                             <li><input type="checkbox"> Necklace</li>
+                             <li><input type="checkbox"> Ring</li>
+                         </ul>
+                     </div>
+                 </div>
+                 
+     
+                 <!-- Stone Type Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('stoneTypeSection', 'stoneTypeArrow')">
+                         Stone Type
+                         <span id="stoneTypeArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="stoneTypeSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox"> AMETHYST</li>
+                             <li><input type="checkbox"> BLACK DIAMOND</li>
+                             <li><input type="checkbox"> BLUE TOPAZ</li>
+                             <li><input type="checkbox"> CITRINE</li>
+                             <li><input type="checkbox"> DIAMOND</li>
+                             <li><input type="checkbox"> EMERALD</li>
+                             <li><input type="checkbox"> GARNET</li>
+                             <li><input type="checkbox"> LONDON BLUE TOPAZ</li>
+                             <li><input type="checkbox"> OLD CUT DIAMOND</li>
+                             <li><input type="checkbox"> OPAL</li>
+                             <li><input type="checkbox"> PERIDO</li>
+                             <li><input type="checkbox"> RUBY</li>
+                             <li><input type="checkbox"> SAPPHIRE</li>
+                             <li><input type="checkbox"> Gold</li>
+                             <li><input type="checkbox"> Silver</li>
+                         </ul>
+                     </div>
+                     
+                 </div>
+     
+                 
+             </div>
+         </div>
+     
      
          <!-- Search Bar -->
          <input type="text" id="searchInput" placeholder="Search for jewelry..." oninput="handleSearch()">

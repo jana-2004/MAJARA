@@ -1,5 +1,5 @@
 import requests
-import json
+import sqlite3
 from bs4 import BeautifulSoup
 
 # Base URL and headers
@@ -10,25 +10,48 @@ headers = {
 }
 
 # List to store all products
-all_products = []
 existing_titles = set()  # To track titles that are already saved
 
-# Load existing products from JSON file
-def load_existing_products(file_path="galla_products.json"):
-    global existing_titles
+# Connect to SQLite database (or create it if not exists)
+def connect_db():
+    conn = sqlite3.connect("galla_products.db")
+    return conn
+
+# Create products table if it doesn't exist
+def create_table():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT UNIQUE,
+            image_url TEXT,
+            product_link TEXT,
+            price_egp TEXT,
+            description TEXT,
+            source TEXT
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+# Function to insert product into the database
+def insert_product(product):
+    conn = connect_db()
+    cursor = conn.cursor()
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            existing_products = json.load(file)
-            # Add all existing titles to the set
-            for product in existing_products:
-                existing_titles.add(product["Title"])
-            return existing_products
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
+        cursor.execute("""
+            INSERT INTO products (title, image_url, product_link, price_egp, description, source)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (product["Title"], product["Image URL"], product["Product Link"], product["Price (EGP)"], product["Description"], product["Source"]))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        pass  # Skip if product with the same title already exists (unique constraint)
+    conn.close()
 
 # Function to scrape products for a given keyword
 def scrape_products(keyword):
-    global all_products, existing_titles
+    global existing_titles
     page = 1
 
     while True:
@@ -82,15 +105,16 @@ def scrape_products(keyword):
             else:
                 description = "Go to the website to know more about it"
 
-            # Add product to the list
-            all_products.append({
+            # Add product to the database
+            product = {
                 "Title": title,
                 "Image URL": image_url,
                 "Product Link": product_link,
                 "Price (EGP)": f"{egp_price:.2f} LE" if isinstance(egp_price, float) else egp_price,
                 "Description": description,
-                "Source":"Jewlery by galla"
-            })
+                "Source": "Jewelry by Galla"
+            }
+            insert_product(product)
 
             # Add title to the set to prevent future duplicates
             existing_titles.add(title)
@@ -104,21 +128,17 @@ def scrape_products(keyword):
 
 # Main function to scrape all jewelry types
 def main():
-    global all_products
+    global existing_titles
     jewelry_types = ["ring", "bracelet", "necklace", "earrings"]
 
-    # Load existing products
-    all_products = load_existing_products()
+    # Create the table if not exists
+    create_table()
 
     # Scrape each type of jewelry
     for jewelry_type in jewelry_types:
         scrape_products(jewelry_type)
 
-    # Save all unique products to the JSON file
-    with open("galla_products.json", "w", encoding="utf-8") as file:
-        json.dump(all_products, file, ensure_ascii=False, indent=4)
-
-    print("Scraped data saved to 'galla_products.json'.")
+    print("Scraped data has been saved to the database.")
 
 if __name__ == "__main__":
     main()

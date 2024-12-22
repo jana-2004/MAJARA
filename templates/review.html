@@ -3,28 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/fevicon.png" type="image/png" />
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/animate.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/responsive.css" rel="stylesheet">
+    <link href="../static/css/colors.css" rel="stylesheet">
+    <link href="../static/css/ekko-lightbox.css" rel="stylesheet">
+    <title>Product Review</title>
 </head>
 <body>
-    <div class="review-form-container">
-        <h1>Leave a Review</h1>
-        <form>
-            <label for="rating">Rating:</label>
-            <select id="rating" name="rating" required>
-                <option value="" disabled selected>Select a rating</option>
-                <option value="5">5 - Excellent</option>
-                <option value="4">4 - Good</option>
-                <option value="3">3 - Average</option>
-                <option value="2">2 - Poor</option>
-                <option value="1">1 - Terrible</option>
-            </select>
-
-            <label for="review">Your Review:</label>
-            <textarea id="review" name="review" rows="4" placeholder="Write your review here..." required></textarea>
-
-            <button type="submit">Submit Review</button>
-        </form>
+    <!-- Display Product Image and Title -->
+    <div class="product-info">
+        <img src="{{ product['Image URL']|default('') }}" alt="{{ product.Title|default('Product') }}" style="width: 200px; height: auto;">
+        <h2>{{ product.Title|default('Product') }}</h2>
     </div>
+
+    <!-- Rating Section -->
+    <h3>Rate this Product:</h3>
+    <ul class="rate-area">
+        <input type="radio" id="5-star" name="rating" value="5" required /><label for="5-star" title="Amazing"></label>
+        <input type="radio" id="4-star" name="rating" value="4" required /><label for="4-star" title="Good"></label>
+        <input type="radio" id="3-star" name="rating" value="3" required /><label for="3-star" title="Average"></label>
+        <input type="radio" id="2-star" name="rating" value="2" required /><label for="2-star" title="Not Good"></label>
+        <input type="radio" id="1-star" name="rating" value="1" required /><label for="1-star" title="Bad"></label>
+    </ul>
+
+    <!-- Review Form -->
+    <form id="review-form">
+        <input type="hidden" name="product_link" value="{{ product_link }}">
+        <div class="fieldset">
+            <label>Name:</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="fieldset">
+            <label>Review:</label>
+            <textarea name="review" rows="4" placeholder="Enter your review" required></textarea>
+        </div>
+        <div class="fieldset">
+            <label>Rating:</label>
+            <input type="radio" name="rating" value="5" required> 5
+            <input type="radio" name="rating" value="4" required> 4
+            <input type="radio" name="rating" value="3" required> 3
+            <input type="radio" name="rating" value="2" required> 2
+            <input type="radio" name="rating" value="1" required> 1
+        </div>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <!-- Display Product Average Rating -->
+    <h3>Average Rating: 
+        {% if reviews|length > 0 %}
+            {% set ratings = reviews|map(attribute='rating')|list %}
+            {% set avg_rating = (ratings | sum) / (ratings | length) %}
+            {{ avg_rating | round(1) }} stars
+        {% else %}
+            No ratings yet
+        {% endif %}
+    </h3>
+
+    <!-- Display Existing Reviews -->
+    <h2>Reviews:</h2>
+    <div id="reviews">
+        {% for review in reviews %}
+            <div class="review">
+                <p><strong>{{ review[0]|default('Anonymous') }}</strong></p>
+                <p>{{ review[1]|default('No review text provided.') }}</p>
+                <p>Rating: {{ review[2]|default(0) }} / 5</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.getElementById("review-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const productLink = document.querySelector("input[name='product_link']").value;
+            const name = document.querySelector("input[name='name']").value.trim();
+            const review = document.querySelector("textarea[name='review']").value.trim();
+            const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : null;
+
+            if (!rating) {
+                alert("Please select a rating.");
+                return;
+            }
+
+            if (!name || !review) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            fetch("/api/add_review", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ product_link: productLink, name, review, rating }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Review submitted!");
+                    location.reload();  // Reload the page to display new reviews
+                } else {
+                    alert(data.message || "Failed to submit review.");
+                }
+            })
+            .catch(error => {
+                console.error("Error submitting review:", error);
+                alert("An error occurred. Please try again.");
+            });
+        });
+    </script>
 </body>
 </html>

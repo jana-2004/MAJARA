@@ -1,7 +1,57 @@
 import requests
+import sqlite3
 import pandas as pd
 from bs4 import BeautifulSoup
-import json
+
+# SQLite database name
+DB_NAME = "products.db"
+
+# Function to create the SQLite table
+def create_table():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    # Create a table for storing product details (if it doesn't already exist)
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Title TEXT,
+        Image_URL TEXT,
+        Product_Link TEXT,
+        Base_Price TEXT,
+        Price_EGP TEXT,
+        Technical_Description TEXT,
+        Material TEXT
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Function to insert product details into the database
+def insert_product(product_details):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    # Insert product details into the database
+    cursor.execute('''
+    INSERT INTO products (Title, Image_URL, Product_Link, Base_Price, Price_EGP, Technical_Description, Material)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        product_details['Title'],
+        product_details['Image URL'],
+        product_details['Product Link'],
+        product_details['Base Price'],
+        product_details['Price (EGP)'],
+        product_details['Technical Description'],
+        product_details['Material']
+    ))
+
+    conn.commit()
+    conn.close()
+
+# Call create_table() at the beginning of the script to ensure the table is created
+create_table()
+
 # Function to scrape Lazurde product details
 base_url = "https://jewelsbygalla.com/en-eg/search"
 params = {
@@ -113,13 +163,13 @@ for card in product_cards:
     # Append product details to the list
     products.append(product_details)
 
-# Create a DataFrame from the product details
+    # Insert product details into SQLite database
+    insert_product(product_details)
+
+# Optionally, create a DataFrame from the product details for further processing
 df = pd.DataFrame(products)
 
-# Print the DataFrame
+# Print the DataFrame (if needed)
 print(df)
 
-with open("products.json", "w", encoding="utf-8") as file:
-    json.dump(products, file, ensure_ascii=False, indent=4)
-
-print("Scraped data saved to 'products.json'.")
+print("Scraped data saved to SQLite database.")

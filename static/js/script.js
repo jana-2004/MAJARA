@@ -3,7 +3,40 @@ let currentProducts = [];
 let currentPage = 1;
 const PRODUCTS_PER_PAGE = 6;
 
-// Function to Fetch Products based on Search Query
+function openFilterPanel() {
+    document.getElementById("filterPanel").style.width = "300px";
+}
+
+function closeFilterPanel() {
+    document.getElementById("filterPanel").style.width = "0";
+}
+
+
+function toggleSection(sectionId, arrowId) {
+    const section = document.getElementById(sectionId);
+    const arrow = document.getElementById(arrowId);
+
+    if (section.classList.contains("hidden")) {
+        section.classList.remove("hidden");
+        arrow.classList.remove("collapsed");
+        arrow.classList.add("expanded");
+    } else {
+        section.classList.add("hidden");
+        arrow.classList.remove("expanded");
+        arrow.classList.add("collapsed");
+    }
+}
+const priceRange = document.getElementById("priceRange");
+const minPrice = document.getElementById("minPrice");
+const maxPrice = document.getElementById("maxPrice");
+
+priceRange.addEventListener("input", () => {
+    const value = priceRange.value;
+    minPrice.textContent = `LE 0`;
+    maxPrice.textContent = `LE ${Number(value).toLocaleString()}`;
+});
+
+
 function handleSearch() {
     const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
@@ -207,5 +240,124 @@ function toggleFavorite(productUrl, heartIcon) {
 
 
 
+
+
+function applyFilters() {
+    let query = document.getElementById("searchInput").value.trim().toLowerCase();
+    query = query.replace(/[^a-z0-9\s]/gi, ''); // Clean out non-alphanumeric characters
+
+    // If query is a single character, allow it to match partial words
+    if (query.length === 1) {
+        query = query.trim();
+    }
+    const minPrice = parseFloat(document.getElementById("priceRange").min);
+    const maxPrice = parseFloat(document.getElementById("priceRange").value);
+
+    // Get selected brands, product types, and stone types
+    const selectedBrands = [];
+    const selectedProductTypes = [];
+    const selectedStoneTypes = [];
+
+    // Collect selected brands
+    document.querySelectorAll("#brandSection input[type='checkbox']:checked").forEach(checkbox => {
+        selectedBrands.push(checkbox.parentElement.textContent.trim().toLowerCase());
+    });
+
+
+    // Collect selected product types
+    document.querySelectorAll("#productTypeSection input[type='checkbox']:checked").forEach(checkbox => {
+        selectedProductTypes.push(checkbox.parentElement.textContent.trim().toLowerCase());
+    });
+
+    // Collect selected stone types
+    document.querySelectorAll("#stoneTypeSection input[type='checkbox']:checked").forEach(checkbox => {
+        selectedStoneTypes.push(checkbox.parentElement.textContent.trim().toLowerCase());
+    });
+
+
+    console.log("Selected Filters:", {
+        selectedBrands,
+        selectedProductTypes,
+        selectedStoneTypes
+    }); 
+
+    // Prepare filter parameters
+    const filters = {
+        query: query,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        brands: selectedBrands,
+        productTypes: selectedProductTypes,
+        stoneTypes: selectedStoneTypes
+    };
+
+    fetch("/filter_products", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(filters)
+    })
+    .then(response => response.json())
+    .then(data => {
+        currentProducts = data;
+        currentPage = 1;
+        renderProducts();
+        renderPagination();
+    });
+}
+
+
+
+
+
+// Listen to changes on the price range, checkboxes, or search input to update the filtered results
+document.getElementById("priceRange").addEventListener("input", (e) => {
+    document.getElementById("minPrice").textContent = `LE 0`;
+    document.getElementById("maxPrice").textContent = `LE ${e.target.value}`;
+    applyFilters();
+});
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.querySelectorAll(".filter-section input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", applyFilters);
+});
+
+
+
+document.getElementById('darkModeToggle').addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+});
+
+
 // Initial Call to Fetch Products on Page Load
 window.onload = handleSearch;
+
+
+var modal = document.getElementById("notification-modal");
+var notificationIcon = document.getElementById("notification-icon");
+var closeModal = document.getElementById("close-modal");
+
+// When the user clicks the notification icon, open the modal
+notificationIcon.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeModal.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

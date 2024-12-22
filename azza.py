@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import json
+import sqlite3
 
 # Base URL and headers
 base_url = "https://eg.azzafahmy.com/search"
@@ -9,8 +9,29 @@ headers = {
     "Accept-Language": "en-US,en;q=0.5"
 }
 
-# List to store product details
-products = []
+# SQLite database connection
+conn = sqlite3.connect('azzafahmy_products.db')
+cursor = conn.cursor()
+
+# Create table to store the product details
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        image_url TEXT,
+        product_link TEXT,
+        price_egp TEXT,
+        description TEXT,
+        source TEXT
+    )
+               
+    
+''')
+
+cursor.execute('''
+    UPDATE products SET source = 'Azza Fahmy' WHERE LOWER(source) LIKE '%azza fahmy%'
+''')
+conn.commit()  
 
 # Function to scrape Azza Fahmy products
 def scrape_azza_products(keyword):
@@ -45,7 +66,6 @@ def scrape_azza_products(keyword):
             product_link = "https://eg.azzafahmy.com" + link_tag["href"] if link_tag else "No link available"
 
             # Extract base price
-           # Extract prices
             base_price_tag = card.find("sale-price", class_="text-subdued")
             if base_price_tag:
                 for span in base_price_tag.find_all("span"):
@@ -76,14 +96,18 @@ def scrape_azza_products(keyword):
                     if tech_desc:
                         tech_description = tech_desc.get_text(strip=True)
 
-                
                 # Add the extracted details
                 product_details['Description'] = tech_description
             else:
                 product_details['Description'] = "No technical description available"
 
-            # Append product details to the list
-            products.append(product_details)
+            # Insert product details into the SQLite database
+            cursor.execute('''
+                INSERT INTO products (title, image_url, product_link, price_egp, description, source)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (product_details['Title'], product_details['Image URL'], product_details['Product Link'],
+                  product_details['Price (EGP)'], product_details['Description'], product_details['Source']))
+            conn.commit()
 
         # Find the next page link in the pagination
         pagination_nav = soup.find("nav", class_="pagination")
@@ -107,11 +131,10 @@ def main():
     for jewelry_type in jewelry_types:
         scrape_azza_products(jewelry_type)
 
-    # Save the results to a JSON file
-    with open("azzafahmy_products.json", "w", encoding="utf-8") as file:
-        json.dump(products, file, ensure_ascii=False, indent=4)
-
-    print("Scraped data saved to 'azzafahmy_products.json'.")
+    print("Scraping completed and data saved to 'azzafahmy_products.db'.")
 
 if __name__ == "__main__":
     main()
+
+# Close the SQLite connection when done
+conn.close()

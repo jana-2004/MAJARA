@@ -3707,6 +3707,10 @@ h3.price_tag {
     padding: 10px 20px;
     background: #fff;
     transition: ease all 0.2s;
+    position: absolute; /* This positions the button at a specific location */
+    top: 50px; /* Adjust the distance from the top of the page */
+    left: 50px; /* Adjust the distance from the left side of the page */
+    z-index: 999; /* Ensures it stays on top of other elements */
 }
 
 .filter-button:hover {
@@ -3716,6 +3720,7 @@ h3.price_tag {
     background: #feb61a;
     color: #ffffff;
 }
+
 
 .port-image {
     width: 100%;
@@ -4688,10 +4693,450 @@ details[open] summary {
     background-image: url('../images/beige_background.jpg');  
 }
 
-.custombg {
-    background-image: url('../images/beige_background.jpg');
-    background-size: cover;  /* Make the background cover the whole section */
-    background-position: center center;  /* Center the background image */
-    background-repeat: no-repeat;  /* Prevent the background image from repeating */
-    padding: 50px 0;
+.notification-wrapper {
+    margin-right: 20px; 
+}
+
+.notification-link {
+    display: inline-block;
+    position: relative;
+}
+
+.notification-icon {
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border-radius: 50%; 
+    color: white; 
+    width: 40px; 
+    height: 40px; 
+    text-align: center;
+    line-height: 40px; 
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red; /* Red background for the count */
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 3px 6px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+}
+.header_top_section .col-lg-9 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.filter-btn {
+    position: absolute;
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 0;
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 9998; 
+   right: 20px;
+}
+
+.filter-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.filter-panel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2);
+    z-index:10000; /* Place the panel behind the button */
+}
+.filter-panel.open {
+    width: 300px; /* Open width for the panel */
+}
+
+.filter-panel .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.filter-panel .filter-header h2 {
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 0;
+}
+
+.filter-panel .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.filter-panel .filter-content {
+    padding: 20px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 8px solid black;
+    background: none;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+.arrow.expanded {
+    transform: rotate(0deg);
+}
+
+.filter-section-content {
+    margin: 10px 0;
+    padding-left: 10px;
+}
+
+.filter-section-content.hidden {
+    display: none;
+}
+
+/* Checkbox List */
+.checkbox-list {
+    list-style-type: none; /* Removes bullets */
+    padding: 0;
+}
+
+.checkbox-list li {
+    display: flex;
+    align-items: center;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+}
+
+.checkbox-list input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Price Range Styles */
+.price-range {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    color: black;
+}
+
+#priceRange {
+    width: 100%;
+    appearance: none;
+    height: 5px;
+    background: black;
+    outline: none;
+    margin: 0 10px;
+}
+
+#priceRange::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#priceRange::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+body.dark-mode {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text */
+}
+
+/* body.dark-mode * {
+    color: hsl(149, 41%, 86%) !important; 
+} */
+
+
+
+/* Header */
+body.dark-mode .header {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+body.dark-mode .nav-link {
+    color: #ffffff; /* White text for nav links */
+}
+
+body.dark-mode .nav-link:hover {
+    color: #d0d0d0; /* Slightly lighter on hover */
+}
+
+/* Footer */
+body.dark-mode .footer {
+    background-color: #302c2c;
+    color: #ffffff; /* White text */
+}
+
+/* Popular Items Section */
+body.dark-mode .product-container {
+    background-color: #292525;
+    color: #ffffff;
+}
+
+body.dark-mode .product {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+/* Search Bar */
+body.dark-mode .search_field {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-mode .search_button {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+/* Buttons */
+body.dark-mode button {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+/* Carousel */
+body.dark-mode .slider_section {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .slider_inner {
+    background-color: #1a1a1a;
+}
+
+/* Links */
+body.dark-mode a {
+    color: #ffffff; /* White for links */
+}
+
+body.dark-mode a:hover {
+    color: #d0d0d0; /* Slightly lighter on hover */
+}
+
+/* Specific Sections */
+body.dark-mode .layout_padding,
+body.dark-mode .section,
+body.dark-mode .padding_bottom_0,
+body.dark-mode .custompg {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Transition for Smooth Theme Change */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Full Class */
+.dark-mode .header_bottom_section {
+    background-color: #333333; /* Darker background for full class */
+    color: #ffffff; /* White text */
+}
+
+/* ////////////////////////////////////////////////////// */
+
+#darkModeToggle {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    padding: 7px 25px;
+    font-size: 14px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    z-index: 1000; 
+ }
+ 
+ #darkModeToggle i {
+    font-size: 16px;
+ }
+ /* Default Light Mode */
+/* Default Light Mode */
+body {
+    color: #000000 !important; /* Black text for light mode */
+}
+
+/* Dark Mode */
+body.dark-mode {
+    color: #ffffff !important; /* White text for dark mode */
+}
+
+/* Ensure links and other elements inherit color in dark mode */
+body.dark-mode a {
+    color: #ffffff !important; /* White links in dark mode */
+}
+body.dark-mode h3, 
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6 {
+    color: #ebe7d0 !important;
+}
+
+body.dark-mode .innerpage_banner {
+    background-color: #444444 !important; /* Grey background */
+}
+body.dark-mode .card-body {
+    background-color: #444444 !important; /* Grey background */
+    color: #ffffff !important; /* White text */
+}
+
+/* Ensure any links inside card-body are also white in dark mode */
+body.dark-mode .card-text  {
+    color: #ffffff !important; /* White links */
+}
+/* Dark mode styling for filter-panel */
+body.dark-mode .filter-panel {
+    background-color: #333333 !important; /* Dark grey background */
+    color: #ffffff !important; /* White text for readability */
+    border-color: #444444 !important; /* Dark border color */
+}
+
+/* Ensure any links inside the filter-panel are white in dark mode */
+body.dark-mode .filter-panel a {
+    color: #ffffff !important; /* White links */
+}
+
+/* Optional: Style input fields inside filter-panel in dark mode */
+body.dark-mode .filter-panel input,
+body.dark-mode .filter-panel select {
+    background-color: #444444 !important; /* Grey input background */
+    color: #ffffff !important; /* White text inside inputs */
+    border-color: #555555 !important; /* Darker border for inputs */
+}
+.rate-area {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    flex-direction: row-reverse; /* Reverses the order of the stars */
+}
+
+.rate-area input {
+    display: none;
+}
+
+.rate-area label {
+    font-size: 28px;
+    color: #bd8a3f; /* Golden color for the stars */
+    cursor: pointer;
+    transition: color 0.3s;
+    margin-left: 5px; /* Space between stars */
+}
+
+.rate-area input:checked ~ label,
+.rate-area label:hover,
+.rate-area label:hover ~ label {
+    color: #f1c40f; /* Lighter gold when hovered or selected */
+}
+
+.rate-area label:before {
+    content: "★"; /* Star symbol */
+}
+
+/* To make the stars align properly */
+.rate-area label {
+    display: inline-block;
+}
+
+#favoriteProductsChartDiv{
+    height: 400px;
+    float: left;
+    width: 50%;
+    margin-bottom: 20px;
+}
+#piechartdiv{
+    height: 400px;
+    float: right;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+#chartdiv{
+    height: 300px;
+    float: left;
+    padding: 10px;
+    width: 50%;
+    margin-bottom: 20px;
+}
+#histogramdiv{
+    height: 300px;
+    float: right;
+    padding: 10px;
+    width: 40%;
+    margin-bottom: 20px;
 }
