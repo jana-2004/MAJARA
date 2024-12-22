@@ -41,24 +41,45 @@
       <!-- header -->
       <header class="header">
 
-        <div class="header_top_section">
-           <div class="container">
-              <div class="row">
-               <div class="col-lg-3">
-                  <div class="logo-wrapper">
-                     <div class="logo">
-                        <a href="/"><img src="..\static\images\majara_logo.png" alt="#" /></a>
+         <div class="header_top_section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-3">
+                     <div class="logo-wrapper">
+                        <div class="logo">
+                           <a href="/"><img src="..\static\images\majara_logo.png" alt="#" /></a>
+                        </div>
+                        <div class="brand-name">
+                           Majara
+                        </div>
                      </div>
-                     <div class="brand-name">
-                        Majara
-                    </div>
                   </div>
-               </div>
-               <div class="col-lg-9 site_information">
+                  <div class="col-lg-9 d-flex justify-content-end">
+                     <div class="logo-wrapper">
+                         <div class="logo">
+                             {% if session.get('user_id') %}
+                                 <!-- If user is logged in, show logout option -->
+                                 <div class="user-name">
+                                    <a href="/logout">Logout</a>
+                                 </div>
+                             {% else %}
+                                 <!-- If user is not logged in, show login option -->
+                                 <a href="/login">
+                                    <img src="../static/images/account-icon.png" alt="Login" class="login-icon">
+                                 </a>
+                             {% endif %}
+                         </div>
+                 
+                         {% if session.get('user_id') %}
+                             <div class="user-name">
+                                 Welcome, {{ session.get('user_name') }}!
+                             </div>
+                         {% endif %}
+                        </div>
+                     </div>
                </div>
             </div>
-           </div>
-        </div>
+         </div>
 
         <div class="header_bottom_section">
 
@@ -78,15 +99,11 @@
                                  <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
                                  </li>
-                                
-                                 <li class="nav-item">
-                                    <a class="nav-link color-aqua-hover" href="/jewellery">Jewellery</a>
-                                 </li>
                                  <li class="nav-item active">
                                     <a class="nav-link color-grey-hover" href="/shop">Shop</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                    <a class="nav-link color-grey-hover" href="/contact">Review</a>
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link color-aqua-hover" href="/about">About</a>
@@ -95,16 +112,14 @@
                            </div>
                         </nav>
                      </div>
-                     <div class="search_bar">
-                        <form id="navbarSearchForm" onsubmit="handleNavbarSearch(event)">
-                           <input type="text" id="navbarSearchInput" class="search_field" placeholder="Search..." required />
-                           <button class="search_button" type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                     </div>
+                     <button id="darkModeToggle" class="btn btn-dark">
+                        <i class="fa fa-moon-o"></i> Theme
+                     </button>
                   </div>
                </div>
             </div>
          </div>
+      
       </header>
       <!-- end header -->
        <!-- inner page -->
@@ -125,11 +140,101 @@
       </section>
       <!-- end inner page -->
       <!-- section -->
-      <section class="layout_padding section padding_bottom_0">
+      <section class="layout_padding section padding_bottom_0 custompg">
          <h1>Welcome to Our Jewelry Store</h1>
 
          <!-- Link to Favorites Page -->
-         <a href="/favPage" class="favorites-link">View Favorites</a>
+         <a href="/favPage" class="product-link">View Favorites</a>
+
+         <button class="filter-btn" onclick="openFilterPanel()">☰ Filter</button>
+
+         <div id="filterPanel" class="filter-panel">
+             <div class="filter-header">
+                 <h2>FILTER</h2>
+                 <button class="close-btn" onclick="closeFilterPanel()">×</button>
+             </div>
+             <div class="filter-content">
+                 <!-- Price Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('priceSection', 'priceArrow')">
+                         Price
+                         <span id="priceArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="priceSection" class="filter-section-content">
+                         <div class="price-range">
+                             <span id="minPrice">LE 0</span>
+                             <input type="range" id="priceRange" min="0" max="550000" step="100" value="550000">
+                             <span id="maxPrice">LE 550,000</span>
+                         </div>
+                     </div>
+                 </div>
+     
+                   <!-- Brand Section -->
+                   <div class="filter-section">
+                     <h3 onclick="toggleSection('brandSection', 'brandArrow')">
+                         Brand
+                         <span id="brandArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="brandSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox" value="Azza Fahmy"> Azza Fahmy</li>
+                             <li><input type="checkbox" value="Jewelry by Galla"> Jewelry by Galla</li>
+                         </ul>
+
+                         
+                     </div>
+                 </div>
+     
+     
+                 <!-- Product Type Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('productTypeSection', 'productTypeArrow')">
+                         Product Type
+                         <span id="productTypeArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="productTypeSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox"> Bracelet</li>
+                             <li><input type="checkbox"> Earrings</li>
+                             <li><input type="checkbox"> Necklace</li>
+                             <li><input type="checkbox"> Ring</li>
+                         </ul>
+                     </div>
+                 </div>
+                 
+     
+                 <!-- Stone Type Section -->
+                 <div class="filter-section">
+                     <h3 onclick="toggleSection('stoneTypeSection', 'stoneTypeArrow')">
+                         Stone Type
+                         <span id="stoneTypeArrow" class="arrow expanded"></span>
+                     </h3>
+                     <div id="stoneTypeSection" class="filter-section-content">
+                         <ul class="checkbox-list">
+                             <li><input type="checkbox"> AMETHYST</li>
+                             <li><input type="checkbox"> BLACK DIAMOND</li>
+                             <li><input type="checkbox"> BLUE TOPAZ</li>
+                             <li><input type="checkbox"> CITRINE</li>
+                             <li><input type="checkbox"> DIAMOND</li>
+                             <li><input type="checkbox"> EMERALD</li>
+                             <li><input type="checkbox"> GARNET</li>
+                             <li><input type="checkbox"> LONDON BLUE TOPAZ</li>
+                             <li><input type="checkbox"> OLD CUT DIAMOND</li>
+                             <li><input type="checkbox"> OPAL</li>
+                             <li><input type="checkbox"> PERIDO</li>
+                             <li><input type="checkbox"> RUBY</li>
+                             <li><input type="checkbox"> SAPPHIRE</li>
+                             <li><input type="checkbox"> Gold</li>
+                             <li><input type="checkbox"> Silver</li>
+                         </ul>
+                     </div>
+                     
+                 </div>
+     
+                 
+             </div>
+         </div>
+     
      
          <!-- Search Bar -->
          <input type="text" id="searchInput" placeholder="Search for jewelry..." oninput="handleSearch()">
@@ -145,50 +250,16 @@
       <footer class="footer layout_padding">
          <div class="container">
             <div class="row">
-               <div class="col-md-3 col-sm-12">
-                  <a href="index.html"><img class="img-responsive" src="images/logo_footer.png" alt="#" /></a>
+               <div class="col-md-3 col-sm-12 mb-3">
+                  <a href="/">
+                     <img class="img-responsive" src="../static/images/majara_logo.png" alt="Majara Logo" />
+                  </a>
                </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Address</h3>
-                  </div>
-                  <div class="address_infor">
-                     <p> 
-                        <span class="icon"><img src="images/location_icon.png" alt="#" /></span>
-                        <span class="addrs">104 New York , USA</span>
-                     </p>
-                  </div>
-               </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Social Link</h3>
-                  </div>
-                  <div class="social_icon">
-                    <ul>
-                       <li><a href="#"><img src="images/fb.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/tw.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/gp.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/in.png" alt="#" /></a></li>
-                    </ul>
-                  </div>
-               </div>
-               
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Newsletter</h3>
-                  </div>
-                  <div class="email_address_bottom">
-                     <form>
-                        <fieldset>
-                           <div class="field_email">
-                              <input type="email" name="email" placeholder="Enter Your Email">
-                              <button><i class="fa fa-search"></i></button>
-                           </div>
-                        </fieldset>
-                     </form>
-                  </div>
+               <div class="col-md-6">
+                  <h4 class="text-uppercase mb-3">Contact Us</h4>
+                  <p class="mb-2"><strong>Address:</strong> 5th settlement, City</p>
+                  <p class="mb-2"><strong>Email:</strong> <a href="mailto:support@majara.com" class="text-white">support@majara.com</a></p>
+                  <p><strong>Phone:</strong> +123 456 7890</p>
                </div>
             </div>
          </div>

@@ -1,14 +1,12 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Favorite Jewelry</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <script defer src="../static/js/script.js"></script>
-
 </head>
-<body>
+<body class="favorites-page">
     <h1>Your Favorite Jewelry</h1>
     <a href="/" class="favorites-link">Go to Home</a>
 
@@ -17,14 +15,156 @@
             <div class="product">
                 <h3>{{ product.Title }}</h3>
                 <img src="{{ product['Image URL'] }}" alt="{{ product.Title }}">
-                <p>{{ product.Description }}</p>
+
+             
+                <details class="description">
+                    <summary>Read More</summary>
+                    <p>{{ product.Description }}</p>
+                </details>
+
                 <p>Price: {{ product['Price (EGP)'] }}</p>
                 <a href="{{ product['Product Link'] }}" target="_blank">View Product</a>
                 <button class="remove-button" onclick="removeFromFavorites('{{ product['Product Link'] }}')">Remove</button>
-
-                           
-             </div>
+            </div>
         {% endfor %}
     </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Favorite Jewelry</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .dragging {
+            opacity: 0.5;
+            background-color: #f9f9f9;
+            border: 2px dashed #ccc;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="favorites-page">
+    <h1>Your Favorite Jewelry</h1>
+    <a href="/" class="favorites-link">Go to Home</a>
+
+    <div id="results" class="product-container">
+        {% for product in favorites %}
+            <div class="product" draggable="true" data-id="{{ product['Product Link'] }}">
+                <h3>{{ product.Title }}</h3>
+                <img src="{{ product['Image URL'] }}" alt="{{ product.Title }}" draggable="false">
+
+                <!-- Description with Read More functionality -->
+                <details class="description" draggable="false">
+                    <summary>Read More</summary>
+                    <p>{{ product.Description }}</p>
+                </details>
+
+                <p>Price: {{ product['Price (EGP)'] }}</p>
+                <a href="{{ product['Product Link'] }}" target="_blank" draggable="false">View Product</a>
+                <button class="remove-button" onclick="removeFromFavorites('{{ product['Product Link'] }}')" draggable="false">Remove</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        const container = document.getElementById('results');
+
+        let draggingElement = null;
+
+        container.addEventListener('dragstart', (e) => {
+            if (e.target.classList.contains('product')) {
+                draggingElement = e.target;
+                draggingElement.classList.add('dragging');
+            }
+        });
+
+        container.addEventListener('dragend', () => {
+            if (draggingElement) {
+                draggingElement.classList.remove('dragging');
+                draggingElement = null;
+
+                updateFavoriteOrder();
+            }
+        });
+
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(container, e.clientX, e.clientY);
+            if (afterElement === null) {
+                container.appendChild(draggingElement);
+            } else {
+                container.insertBefore(draggingElement, afterElement);
+            }
+        });
+
+        function getDragAfterElement(container, x, y) {
+            const draggableElements = [...container.querySelectorAll('.product:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = Math.hypot(x - (box.left + box.width / 2), y - (box.top + box.height / 2));
+                if (offset < closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.POSITIVE_INFINITY }).element;
+        }
+
+        function updateFavoritesOrder() {
+    const reorderedLinks = Array.from(container.querySelectorAll('.product')).map(product => product.dataset.id);
+
+    console.log("Reordered Links:", reorderedLinks);
+
+    fetch('/update_favorites_order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reorderedLinks }), 
+    })
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data.success) {
+        //         alert('Favorites order updated successfully!');
+        //     } else {
+        //         console.error('Error updating order:', data.error);
+        //         alert(`Error updating favorites order: ${data.error}`);
+        //     }
+        // })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating favorites order.');
+        });
+}
+
+
+container.addEventListener('dragend', updateFavoritesOrder);
+
+    </script>
+
 </body>
 </html>

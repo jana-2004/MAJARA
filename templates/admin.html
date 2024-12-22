@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Products Popularity</title>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/barchart.js"></script>
+    <script src="/static/js/piechart.js"></script>
+    <script src="/static/js/product_type.js"></script>
+    <script src="/static/js/session_duration.js"></script>
+
+
+
+</head>
+<body>
+    <body>
+        <h1>Welcome, {{ user_name }} (Admin)</h1>
+    
+        <div class="container">
+            <!-- Existing admin page content -->
+        </div>
+    
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+            <a href="{{ url_for('index') }}" class="button">Go Back to Home</a>
+        </div>
+    
+    
+    
+    <h1>Interactive Product Insights Dashboard</h1>
+
+    <div class="container">
+        <div id="favoriteProductsChartDiv" class="chart">
+            <strong>Favorite Products Popularity</strong>
+            <select id="favoriteProductCount">
+                <option value="5">Top 5</option>
+                <option value="10">Top 10</option>
+            </select>
+        </div>
+
+        <div id="piechartdiv" class="chart">
+            <strong>Products by Price Range</strong>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="chartdiv" class="chart">
+            <strong>Product Types Count with Sources</strong>
+            <select id="sourceSelect">
+                <option value="Jewelry by Galla">Jewelry by Galla</option>
+                <option value="Azza Fahmy">Azza Fahmy</option>
+            </select>
+        </div>
+
+        <div id="histogramdiv" class="chart">
+            <strong>Session Duration Distribution</strong>
+        </div>
+    </div>
+    
+</body>
+</html>

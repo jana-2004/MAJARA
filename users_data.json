@@ -9,6 +9,16 @@
             "https://jewelsbygalla.com/en-eg/products/pink-sapphire-eternity-ring-sapphire-18k-gold-jcr067-y-psph?_pos=2&_sid=61b6cfebd&_ss=r",
             "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r",
             "https://jewelsbygalla.com/en-eg/products/champagne-sapphire-ring-jcr074-y-ov?_pos=4&_sid=61b6cfebd&_ss=r"
+        ],
+        "notifications": [
+            {
+                "message": "Price drop on Crimson Scarlet Ring!",
+                "read": false
+            },
+            {
+                "message": "New arrivals in your favorite category: Rings.",
+                "read": false
+            }
         ]
     },
     "riwanashraf68@gmail.com": {
@@ -17,7 +27,19 @@
         "address": "street 1",
         "year_of_birth": "2004",
         "favorites": [
-            "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r"
+            "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r",
+            "https://jewelsbygalla.com/en-eg/products/pink-serenity-necklace-sapphire-18k-gold-jcn021-r-psph?_pos=14&_sid=dbb94ef51&_ss=r",
+            "https://jewelsbygalla.com/en-eg/products/pink-aura-ring-sapphire-18k-gold-jcr087-y-psph?_pos=20&_sid=61b6cfebd&_ss=r"
+        ],
+        "notifications": [
+            {
+                "message": "Price drop on Crimson Scarlet Ring!",
+                "read": false
+            },
+            {
+                "message": "New arrivals in your favorite category: Rings.",
+                "read": false
+            }
         ]
     },
     "maysammiso@gmail.com": {
@@ -27,8 +49,17 @@
         "year_of_birth": "2005",
         "favorites": [
             "https://jewelsbygalla.com/en-eg/products/pink-sapphire-eternity-ring-sapphire-18k-gold-jcr067-y-psph?_pos=2&_sid=61b6cfebd&_ss=r",
-            "https://jewelsbygalla.com/en-eg/products/kaleidoscope-love-ring-jcr066-y-msph?_pos=3&_sid=61b6cfebd&_ss=r",
             "https://jewelsbygalla.com/en-eg/products/champagne-sapphire-ring-jcr074-y-ov?_pos=4&_sid=61b6cfebd&_ss=r"
+        ],
+        "notifications": [
+            {
+                "message": "Price drop on Crimson Scarlet Ring!",
+                "read": false
+            },
+            {
+                "message": "New arrivals in your favorite category: Rings.",
+                "read": false
+            }
         ]
     }
 }

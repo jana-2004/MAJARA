@@ -44,22 +44,45 @@
       <!-- header -->
       <header class="header">
 
-        <div class="header_top_section">
-           <div class="container">
-              <div class="row">
-               <div class="col-lg-3">
-                  <div class="logo-wrapper">
-                     <div class="logo">
-                        <a href="/"><img src="..\static\images\majara_logo.png" alt="#" /></a>
+         <div class="header_top_section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-3">
+                     <div class="logo-wrapper">
+                        <div class="logo">
+                           <a href="/"><img src="..\static\images\majara_logo.png" alt="#" /></a>
+                        </div>
+                        <div class="brand-name">
+                           Majara
+                        </div>
                      </div>
-                     <div class="brand-name">
-                        Majara
-                    </div>
                   </div>
+                  <div class="col-lg-9 d-flex justify-content-end">
+                     <div class="logo-wrapper">
+                         <div class="logo">
+                             {% if session.get('user_id') %}
+                                 <!-- If user is logged in, show logout option -->
+                                 <div class="user-name">
+                                    <a href="/logout">Logout</a>
+                                 </div>
+                             {% else %}
+                                 <!-- If user is not logged in, show login option -->
+                                 <a href="/login">
+                                     <img src="../static/images/account-icon.png" alt="Login" class="login-icon">
+                                 </a>
+                             {% endif %}
+                         </div>
+                 
+                         {% if session.get('user_id') %}
+                             <div class="user-name">
+                                 Welcome, {{ session.get('user_name') }}!
+                             </div>
+                         {% endif %}
+                        </div>
+                     </div>
                </div>
             </div>
-           </div>
-        </div>
+         </div>
 
         <div class="header_bottom_section">
 
@@ -80,13 +103,10 @@
                                     <a class="nav-link" href="/">Home</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-aqua-hover" href="/jewellery">Jewellery</a>
-                                 </li>
-                                 <li class="nav-item">
                                     <a class="nav-link color-grey-hover" href="/shop">Shop</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="/contact">Contact</a>
+                                    <a class="nav-link color-grey-hover" href="/contact">Review</a>
                                  </li>
                                  <li class="nav-item active">
                                     <a class="nav-link color-aqua-hover" href="/about">About</a>
@@ -95,16 +115,14 @@
                            </div>
                         </nav>
                      </div>
-                     <div class="search_bar">
-                        <form action="/">
-                           <input type="text" class="search_field" placeholder="Search" required />
-                           <button class="search_button" type="button"><i class="fa fa-search"></i></button>
-                        </form>
-                     </div>
+                     <button id="darkModeToggle" class="btn btn-dark">
+                        <i class="fa fa-moon-o"></i> Theme
+                     </button>
                   </div>
                </div>
             </div>
          </div>
+        
       </header>
       <!-- end header -->
       <!-- inner page -->
@@ -176,50 +194,16 @@
       <footer class="footer layout_padding">
          <div class="container">
             <div class="row">
-               <div class="col-md-3 col-sm-12">
-                  <a href="/"><img class="img-responsive" src="..\static\images\majara_logo.png" alt="#" /></a>
+               <div class="col-md-3 col-sm-12 mb-3">
+                  <a href="/">
+                     <img class="img-responsive" src="../static/images/majara_logo.png" alt="Majara Logo" />
+                  </a>
                </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Address</h3>
-                  </div>
-                  <div class="address_infor">
-                     <p> 
-                        <span class="icon"><img src="images/location_icon.png" alt="#" /></span>
-                        <span class="addrs">104 New York , USA</span>
-                     </p>
-                  </div>
-               </div>
-
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Social Link</h3>
-                  </div>
-                  <div class="social_icon">
-                    <ul>
-                       <li><a href="#"><img src="images/fb.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/tw.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/gp.png" alt="#" /></a></li>
-                       <li><a href="#"><img src="images/in.png" alt="#" /></a></li>
-                    </ul>
-                  </div>
-               </div>
-               
-               <div class="col-md-3 col-sm-12">
-                  <div class="footer_link_heading">
-                     <h3>Newsletter</h3>
-                  </div>
-                  <div class="email_address_bottom">
-                     <form>
-                        <fieldset>
-                           <div class="field_email">
-                              <input type="email" name="email" placeholder="Enter Your Email">
-                              <button><i class="fa fa-search"></i></button>
-                           </div>
-                        </fieldset>
-                     </form>
-                  </div>
+               <div class="col-md-6">
+                  <h4 class="text-uppercase mb-3">Contact Us</h4>
+                  <p class="mb-2"><strong>Address:</strong> 5th settlement, City</p>
+                  <p class="mb-2"><strong>Email:</strong> <a href="mailto:support@majara.com" class="text-white">support@majara.com</a></p>
+                  <p><strong>Phone:</strong> +123 456 7890</p>
                </div>
             </div>
          </div>
@@ -227,6 +211,29 @@
       <!-- end footer -->
       <!-- Core JavaScript
          ================================================== -->
+
+
+         <script>
+            document.getElementById('darkModeToggle').addEventListener('click', function () {
+               document.body.classList.toggle('dark-mode');
+            
+               // Save the user's preference in localStorage
+               const isDarkMode = document.body.classList.contains('dark-mode');
+               localStorage.setItem('darkMode', isDarkMode);
+            });
+            
+            // Load the user's preference on page load
+            window.addEventListener('DOMContentLoaded', function () {
+               if (localStorage.getItem('darkMode') === 'true') {
+                  document.body.classList.add('dark-mode');
+               }
+            });
+            
+                  </script>
+
+
+
+         <script src="../static/js/script.js"></script>
       <script src="../static/js/jquery.min.js"></script>
       <script src="../static/js/tether.min.js"></script>
       <script src="../static/js/bootstrap.min.js"></script>
@@ -234,5 +241,6 @@
       <script src="../static/js/animate.js"></script>
       <script src="../static/js/ekko-lightbox.js"></script>
       <script src="../static/js/custom.js"></script>
+  
    </body>
 </html>
