@@ -562,15 +562,8 @@ def save_session_duration(email, duration):
 
 
 
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # Check if the user is already logged in
-    if 'user_id' in session:
-        flash('You are already logged in')
-        return redirect(url_for('index'))
-
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -579,12 +572,12 @@ def login():
             conn = sqlite3.connect(DATABASE_FILE)
             cursor = conn.cursor()
 
-            # Fetch user data by email
-            cursor.execute("SELECT id, email, name, password FROM users WHERE email = ?", (email,))
+            # Fetch user data from SQLite database
+            cursor.execute("SELECT id, email, name, password, is_admin FROM users WHERE email = ?", (email,))
             user_row = cursor.fetchone()
 
             if user_row:
-                user_id, stored_email, stored_name, stored_password = user_row
+                user_id, stored_email, stored_name, stored_password, is_admin = user_row
 
                 # Verify password
                 if pbkdf2_sha256.verify(password, stored_password):
@@ -592,28 +585,23 @@ def login():
                     session['user_id'] = user_id
                     session['user_email'] = stored_email
                     session['user_name'] = stored_name
+                    session['is_admin'] = is_admin
                     session['login_time'] = datetime.now().isoformat()
 
-                    # Fetch unread notifications count
-                    cursor.execute("""
-                        SELECT COUNT(*) FROM notifications 
-                        WHERE user_id = ? AND is_read = 0
-                    """, (user_id,))
-                    session['notification_count'] = cursor.fetchone()[0]
+                    # Redirect admins to admin page
+                    if is_admin:
+                        return redirect(url_for("admin_page"))
 
-                    # Redirect to the index page after successful login
-                    return redirect(url_for('index'))
-
-            # If credentials are invalid
-            return render_template('login.html', error_username_password='Invalid email or password')
+                    # Redirect regular users to the index page
+                    return redirect(url_for("index"))
 
         except sqlite3.Error as e:
             print(f"Database error: {e}")
-            return render_template('login.html', error_general='An error occurred. Please try again.')
         finally:
             conn.close()
 
-    # Render the login page for GET requests
+        return render_template("login.html", error_username_password="Invalid email or password")
+
     return render_template("login.html")
 
 
